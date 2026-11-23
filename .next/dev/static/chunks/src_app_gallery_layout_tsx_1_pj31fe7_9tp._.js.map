@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/nmt/mynext/ifs-v4/src/app/gallery/layout.tsx"],"sourcesContent":["\n'use client';\n    \nimport { PictureProvider } from \"@/src/utils/pictureContext\";\n\n\nexport default function PictureLayout({ children }: { children: React.ReactNode }) {\n\n    return (\n        <PictureProvider>\n            {children}\n        </PictureProvider>\n    );\n}"],"names":["PictureLayout","children"],"mappings":";;;;;AAGA;AAFA;;;AAKe,SAASA,cAAc,EAAEC,QAAQ,EAAiC;IAE7E,qBACI,+VAAC,qJAAe;kBACXA;;;;;;AAGb;KAPwBD"}}]
+}

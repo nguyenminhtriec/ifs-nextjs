@@ -1,0 +1,6 @@
+{
+  "name": "SpectraGL - 10,000-Point WebGL Scatter Plot",
+  "description": "High-performance interactive 10,000-point WebGL scatter plot using D3.js and GPU rendering for image pointillism and data visualization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
