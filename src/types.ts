@@ -7,15 +7,10 @@ export interface ScatterPoint {
   id: number;
   x: number;       // Normalized coordinate in [-100, 100]
   y: number;       // Normalized coordinate in [-100, 100]
-  r: number;       // Red [0, 1]
-  g: number;       // Green [0, 1]
-  b: number;       // Blue [0, 1]
-  a: number;       // Alpha [0, 1]
+  color: string;
   size: number;    // Point size multiplier [0.5, 3.0]
-  intensity: number; // Luminance / density [0, 1]
-  cluster: number; // Index of IFS transform that generated this point
-  label?: string;  // Region or IFS transform description
-}
+  intensity: number; // [0, 1.0]
+}  
 
 export interface IFSTransformation {
   a: number;
@@ -25,7 +20,7 @@ export interface IFSTransformation {
   e: number;
   f: number;
   p: number;       // Probability [0, 1]
-  color: [number, number, number]; // Base RGB
+  color: string; // Base RGB
 }
 
 export interface IFSPicture {

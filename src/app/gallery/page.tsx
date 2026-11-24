@@ -204,9 +204,7 @@ export default function Gallery() {
                             key={`swatch-${pic.id}-${tidx}`}
                             className="w-3 h-3 rounded-full border border-black/40"
                             style={{
-                              backgroundColor: `rgb(${Math.round(t.color[0] * 255)}, ${Math.round(
-                                t.color[1] * 255
-                              )}, ${Math.round(t.color[2] * 255)})`,
+                              backgroundColor: t.color,
                             }}
                             title={`Transform T${tidx + 1} (p=${(t.p * 100).toFixed(1)}%)`}
                           />

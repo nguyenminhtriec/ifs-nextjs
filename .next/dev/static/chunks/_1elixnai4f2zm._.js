@@ -749,7 +749,7 @@ function Gallery() {
                                                 children: pic.transformations.map((t, tidx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$4$2e$6_$40$types$2b$node$40$22$2e$20$2e$5_react$2d$dom$40$19$2e$3$2e$1_react$40$19$2e$3$2e$1_$5f$react$40$19$2e$3$2e$1$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-3 h-3 rounded-full border border-black/40",
                                                         style: {
-                                                            backgroundColor: `rgb(${Math.round(t.color[0] * 255)}, ${Math.round(t.color[1] * 255)}, ${Math.round(t.color[2] * 255)})`
+                                                            backgroundColor: t.color
                                                         },
                                                         title: `Transform T${tidx + 1} (p=${(t.p * 100).toFixed(1)}%)`
                                                     }, `swatch-${pic.id}-${tidx}`, false, {
@@ -828,254 +828,70 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 const IFS_TOTAL_POINTS = 20000;
 const COLOR_SCHEMES = {
     blue_range: [
-        [
-            0.376,
-            0.647,
-            0.980
-        ],
-        [
-            0.231,
-            0.509,
-            0.964
-        ],
-        [
-            0.145,
-            0.388,
-            0.921
-        ]
+        "#60a5fa",
+        "#3b82f6",
+        "#2563eb"
     ],
     pink_rank: [
-        [
-            0.9,
-            0.65,
-            0.83
-        ],
-        [
-            0.92,
-            0.28,
-            0.60
-        ],
-        [
-            0.74,
-            0.09,
-            0.36
-        ]
+        "#e6a6d4",
+        "#eb4799",
+        "#bd175c"
     ],
     emerald_forest: [
-        [
-            .1,
-            .95,
-            .7
-        ],
-        [
-            .1,
-            .75,
-            .5
-        ],
-        [
-            .1,
-            .55,
-            .3
-        ],
-        [
-            0.05,
-            0.5,
-            0.25
-        ],
-        [
-            0.85,
-            0.95,
-            0.3
-        ]
+        "#1af2b3",
+        "#1abf80",
+        "#1a8c4d",
+        "#0d8040",
+        "#d9f24d"
     ],
     cyber_neon: [
-        [
-            0.05,
-            0.85,
-            0.95
-        ],
-        [
-            0.95,
-            0.15,
-            0.75
-        ],
-        [
-            0.55,
-            0.25,
-            0.98
-        ],
-        [
-            0.1,
-            0.95,
-            0.65
-        ],
-        [
-            0.98,
-            0.8,
-            0.15
-        ]
+        "#0dd9f2",
+        "#f226bf",
+        "#8c40fa",
+        "#1af2a6",
+        "#facc26"
     ],
     cyber_yellow: [
-        [
-            0.05,
-            0.85,
-            0.95
-        ],
-        [
-            0.95,
-            0.15,
-            0.75
-        ],
-        [
-            0.95,
-            0.95,
-            0.50
-        ],
-        [
-            0.1,
-            0.95,
-            0.65
-        ],
-        [
-            0.98,
-            0.8,
-            0.15
-        ]
+        "#0dd9f2",
+        "#f226bf",
+        "#f2f280",
+        "#1af2a6",
+        "#facc26"
     ],
     cosmic_fire: [
-        [
-            0.98,
-            0.25,
-            0.1
-        ],
-        [
-            0.98,
-            0.65,
-            0.15
-        ],
-        [
-            0.95,
-            0.9,
-            0.25
-        ],
-        [
-            0.75,
-            0.1,
-            0.3
-        ],
-        [
-            0.35,
-            0.05,
-            0.4
-        ]
+        "#fa401a",
+        "#faa626",
+        "#f2e640",
+        "#bf1a4d",
+        "#590d66"
     ],
     deep_ocean: [
-        [
-            0.1,
-            0.45,
-            0.95
-        ],
-        [
-            0.05,
-            0.75,
-            0.9
-        ],
-        [
-            0.3,
-            0.9,
-            0.85
-        ],
-        [
-            0.15,
-            0.25,
-            0.65
-        ],
-        [
-            0.5,
-            0.8,
-            1.0
-        ]
+        "#1a73f2",
+        "#0dbfe6",
+        "#4de6d9",
+        "#2640a6",
+        "#80ccff"
     ],
     amethyst_dream: [
-        [
-            0.7,
-            0.25,
-            0.95
-        ],
-        [
-            0.88,
-            0.4,
-            0.85
-        ],
-        [
-            0.45,
-            0.15,
-            0.75
-        ],
-        [
-            0.95,
-            0.7,
-            0.9
-        ],
-        [
-            0.3,
-            0.1,
-            0.5
-        ]
+        "#b340f2",
+        "#e066d9",
+        "#7326bf",
+        "#f2b3e6",
+        "#4d1a80"
     ],
     golden_sol: [
-        [
-            0.98,
-            0.82,
-            0.15
-        ],
-        [
-            0.95,
-            0.55,
-            0.1
-        ],
-        [
-            1.0,
-            0.95,
-            0.45
-        ],
-        [
-            0.85,
-            0.35,
-            0.05
-        ],
-        [
-            0.65,
-            0.25,
-            0.05
-        ]
+        "#fad126",
+        "#f28c1a",
+        "#fff273",
+        "#d9590d",
+        "#a6400d"
     ],
     amethyst_yellow: [
-        [
-            0.7,
-            0.25,
-            0.95
-        ],
-        [
-            0.88,
-            0.4,
-            0.85
-        ],
-        [
-            0.45,
-            0.75,
-            0.15
-        ],
-        [
-            0.95,
-            0.7,
-            0.9
-        ],
-        [
-            0.3,
-            0.1,
-            0.5
-        ]
+        "#b340f2",
+        "#e066d9",
+        "#73bf26",
+        "#f2b3e6",
+        "#4d1a80"
     ]
 };
 const SCHEME_KEYS = Object.keys(COLOR_SCHEMES);
@@ -1928,12 +1744,7 @@ function generateRandomIFSConfig() {
         // Map [-100, 100] to [10, 150]
         const px = 80 + p.x / 100 * 65;
         const py = 80 - p.y / 100 * 65;
-        ctx.fillStyle = `rgba(
-      ${Math.round(p.r * 255)}, 
-      ${Math.round(p.g * 255)}, 
-      ${Math.round(p.b * 255)}, 
-      0.95
-    )`;
+        ctx.fillStyle = p.color;
         ctx.fillRect(px, py, .5, .5);
     }
     return canvas.toDataURL('image/png');
@@ -2011,21 +1822,16 @@ function generateScatterPoints(config) {
         const normX = (item.x - centerX) / spanX * 176;
         const normY = (item.y - centerY) / spanY * 176;
         const baseColor = fullTransforms[item.transformIdx].color;
-        // Slight brightness modulation based on distance from attractor center
+        // // Slight brightness modulation based on distance from attractor center
         const dist = Math.sqrt(normX * normX + normY * normY) / 100;
         const intensity = Math.max(0.2, Math.min(1.0, 1.0 - dist * 0.45));
         points.push({
             id: i,
             x: Number(normX.toFixed(3)),
             y: Number(normY.toFixed(3)),
-            r: baseColor[0],
-            g: baseColor[1],
-            b: baseColor[2],
-            a: 0.92,
+            color: baseColor,
             size: 1,
-            intensity,
-            cluster: item.transformIdx + 1,
-            label: `Transform T${item.transformIdx + 1} (${cfg.name})`
+            intensity
         });
     }
     return {

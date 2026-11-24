@@ -90,11 +90,7 @@ function createCanvasPicture(points: ScatterPoint[], plainColor: string | null):
 
     if (plainColor) ctx.fillStyle = plainColor
     else {
-      ctx.fillStyle = `rgba(
-        ${Math.round(p.r * 255)}, 
-        ${Math.round(p.g * 255)}, 
-        ${Math.round(p.b * 255 )}, 
-        0.95)`;
+      ctx.fillStyle = p.color;
     }  
     ctx.fillRect(px, py, 0.5, 0.5);
   }

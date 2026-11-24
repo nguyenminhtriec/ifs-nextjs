@@ -28,7 +28,7 @@ import {
 } from 'lucide-react';
 
 interface Props {
-  activePicture: IFSPicture;
+  activePicture?: IFSPicture;
   pictures: IFSPicture[];
   onSelectPicture: (pic: IFSPicture) => void;
   onGenerateNewPicture: (presetName?: string) => void;
@@ -163,7 +163,7 @@ export const ControlPanel: React.FC<Props> = ({
       </div>
 
       {/* 3. Active Picture Information & Affine Equations */}
-      <div className="p-3 bg-[#0d1322] border border-slate-800 rounded-xl space-y-2">
+      { activePicture && <div className="p-3 bg-[#0d1322] border border-slate-800 rounded-xl space-y-2">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
           <div>
             <h4 className="text-xs font-semibold text-white truncate">
@@ -174,7 +174,7 @@ export const ControlPanel: React.FC<Props> = ({
           <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/40 border border-cyan-800/50 px-2 py-0.5 rounded">
             10,000 Pts
           </span>
-        </div>
+        </div> 
 
         <p className="text-[11px] text-slate-400 leading-relaxed">
           {activePicture.description}
@@ -196,9 +196,7 @@ export const ControlPanel: React.FC<Props> = ({
                   <div
                     className="w-2 h-2 rounded-full"
                     style={{
-                      backgroundColor: `rgb(${Math.round(t.color[0] * 255)}, ${Math.round(
-                        t.color[1] * 255
-                      )}, ${Math.round(t.color[2] * 255)})`,
+                      backgroundColor: t.color
                     }}
                   />
                   <span>
@@ -213,7 +211,7 @@ export const ControlPanel: React.FC<Props> = ({
             ))}
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* 4. Shader & Appearance Settings */}
       <div className="p-3 bg-[#0d1322] border border-slate-800 rounded-xl space-y-3">
@@ -366,36 +364,12 @@ export const ControlPanel: React.FC<Props> = ({
       </div>
 
       {/* 5. Selection Statistics (if active) */}
-      {selectionStats && (
-        <div className="p-3 bg-cyan-950/30 border border-cyan-800/60 rounded-xl space-y-1.5">
-          <div className="flex items-center justify-between text-xs font-semibold text-cyan-300">
-            <span>Box Selection</span>
-            <div
-              className="w-2.5 h-2.5 rounded-full border border-white/40"
-              style={{ backgroundColor: selectionStats.dominantColor }}
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-slate-300">
-            <div>
-              <span className="text-slate-500 block">Selected:</span>
-              <span className="text-cyan-300 tabular-nums">
-                {selectionStats.count.toLocaleString()} pts
-              </span>
-            </div>
-            <div>
-              <span className="text-slate-500 block">Mean Pos:</span>
-              <span className="tabular-nums">
-                ({selectionStats.avgX}, {selectionStats.avgY})
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 };
 
-export function shuffled (arr: any[]): any[] {
+export function shuffled<T> (arr: T[]): T[] {
     const shuffled = [];
     for (let i=0; i<arr.length; i++) {
         let j = Math.floor(Math.random() * arr.length);

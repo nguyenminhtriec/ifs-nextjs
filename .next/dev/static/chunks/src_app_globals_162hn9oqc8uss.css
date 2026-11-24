@@ -63,6 +63,7 @@
     --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --color-emerald-400: #00d294;
+    --color-teal-600: #009588;
     --color-cyan-300: #53eafd;
     --color-cyan-400: #00d2ef;
     --color-cyan-500: #00b7d7;
@@ -81,7 +82,6 @@
     --color-slate-600: #45556c;
     --color-slate-700: #314158;
     --color-slate-800: #1d293d;
-    --color-slate-900: #0f172b;
     --color-gray-500: #6a7282;
     --color-gray-600: #4a5565;
     --color-black: #000;
@@ -123,6 +123,7 @@
   @supports (color: lab(0% 0 0)) {
     :root, :host {
       --color-emerald-400: lab(75.0771% -60.7313 19.4147);
+      --color-teal-600: lab(55.0223% -41.0774 -3.90277);
       --color-cyan-300: lab(85.3886% -36.7636 -21.5716);
       --color-cyan-400: lab(76.6045% -40.9406 -29.6231);
       --color-cyan-500: lab(67.805% -35.3952 -30.2018);
@@ -141,7 +142,6 @@
       --color-slate-600: lab(35.5623% -1.74978 -15.4316);
       --color-slate-700: lab(26.9569% -1.47016 -15.6993);
       --color-slate-800: lab(16.132% -.318035 -14.6672);
-      --color-slate-900: lab(7.78673% 1.82345 -15.0537);
       --color-gray-500: lab(47.7841% -.393182 -10.0268);
       --color-gray-600: lab(35.6337% -1.58697 -10.8425);
     }
@@ -532,10 +532,6 @@
     height: calc(var(--spacing) * 2);
   }
 
-  .h-2\.5 {
-    height: calc(var(--spacing) * 2.5);
-  }
-
   .h-3 {
     height: calc(var(--spacing) * 3);
   }
@@ -564,10 +560,6 @@
     height: calc(var(--spacing) * 14);
   }
 
-  .h-16 {
-    height: calc(var(--spacing) * 16);
-  }
-
   .h-\[55vh\] {
     height: 55vh;
   }
@@ -592,6 +584,10 @@
     max-height: 45vh;
   }
 
+  .min-h-120 {
+    min-height: calc(var(--spacing) * 120);
+  }
+
   .min-h-\[480px\] {
     min-height: 480px;
   }
@@ -602,10 +598,6 @@
 
   .w-2 {
     width: calc(var(--spacing) * 2);
-  }
-
-  .w-2\.5 {
-    width: calc(var(--spacing) * 2.5);
   }
 
   .w-3 {
@@ -632,6 +624,10 @@
     width: calc(var(--spacing) * 56);
   }
 
+  .w-240 {
+    width: calc(var(--spacing) * 240);
+  }
+
   .w-\[1px\] {
     width: 1px;
   }
@@ -642,6 +638,10 @@
 
   .w-full {
     width: 100%;
+  }
+
+  .w-px {
+    width: 1px;
   }
 
   .max-w-2\/3 {
@@ -698,10 +698,6 @@
 
   .grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .grid-cols-5 {
@@ -822,10 +818,6 @@
 
   .overflow-hidden {
     overflow: hidden;
-  }
-
-  .overflow-visible {
-    overflow: visible;
   }
 
   .overflow-x-auto {
@@ -1093,16 +1085,6 @@
     background-color: var(--color-cyan-600);
   }
 
-  .bg-cyan-950\/30 {
-    background-color: #0533454d;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-cyan-950\/30 {
-      background-color: color-mix(in oklab, var(--color-cyan-950) 30%, transparent);
-    }
-  }
-
   .bg-cyan-950\/40 {
     background-color: #05334566;
   }
@@ -1145,8 +1127,8 @@
     background-color: var(--color-slate-800);
   }
 
-  .bg-slate-900 {
-    background-color: var(--color-slate-900);
+  .bg-teal-600 {
+    background-color: var(--color-teal-600);
   }
 
   .bg-linear-to-br {
@@ -1186,16 +1168,6 @@
   .to-\[\#090d16\] {
     --tw-gradient-to: #090d16;
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-
-  .fill-cyan-500\/70 {
-    fill: #00b7d7b3;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .fill-cyan-500\/70 {
-      fill: color-mix(in oklab, var(--color-cyan-500) 70%, transparent);
-    }
   }
 
   .object-cover {
@@ -1454,10 +1426,6 @@
     color: var(--color-white);
   }
 
-  .italic {
-    font-style: italic;
-  }
-
   .tabular-nums {
     --tw-numeric-spacing: tabular-nums;
     font-variant-numeric: var(--tw-ordinal, ) var(--tw-slashed-zero, ) var(--tw-numeric-figure, ) var(--tw-numeric-spacing, ) var(--tw-numeric-fraction, );
@@ -1681,10 +1649,6 @@
       .hover\:bg-slate-800\/60:hover {
         background-color: color-mix(in oklab, var(--color-slate-800) 60%, transparent);
       }
-    }
-
-    .hover\:fill-cyan-400:hover {
-      fill: var(--color-cyan-400);
     }
 
     .hover\:text-cyan-300:hover {

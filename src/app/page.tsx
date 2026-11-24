@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import {
   IFSPicture,
@@ -13,11 +13,11 @@ import {
   PointShape,
   BlendMode,
   SelectionStats,
+  ScatterPoint,
 } from '@/src/types';
 import { createIFSPicture} from '@/src/utils/ifsGenerators';
 import { WebGLScatterPlot } from '@/src/components/WebGLScatterPlot';
 import { ControlPanel } from '@/src/components/ControlPanel';
-import { HistogramPanel } from '@/src/components/HistogramPanel';
 import { GalleryPage } from '@/src/components/GalleryPage';
 import {
   Sparkles,
@@ -30,13 +30,10 @@ import {
 } from 'lucide-react';
 
 
-
 export default function HomePage() {
-  // const [mounted, setMounted] = useState<boolean>(false);
-  const initialPic = createIFSPicture();
+  // const initialPic = createIFSPicture();
   // Array of created pictures with max length = 10
-  const [pictures, setPictures] = useState<IFSPicture[]>([initialPic]);
-
+  const [pictures, setPictures] = useState<IFSPicture[]>([]);
   // (() => {
   //   // Initialize with 1 initial deterministic IFS picture (Barnsley Fern) with fixed seed
   //   const initialPic = createIFSPicture('Barnsley Fern');
@@ -44,11 +41,11 @@ export default function HomePage() {
   // });
 
   // Current active picture displayed on the scatter plot
-  const [activePicture,  setActivePicture] = useState<IFSPicture>(pictures[0]);
+  const [activePicture,  setActivePicture] = useState<IFSPicture>(undefined);
 
   // Points for WebGL transition rendering
-  const [currentPoints, setCurrentPoints] = useState(() => activePicture.points);
-  const [targetPoints, setTargetPoints] = useState(() => activePicture.points);
+  const [currentPoints, setCurrentPoints] = useState<ScatterPoint[]>([])  //(() => activePicture.points);
+  const [targetPoints, setTargetPoints] = useState<ScatterPoint[]>([])  //(() => activePicture.points);
   const [morphProgress, setMorphProgress] = useState<number>(1.0);
   const morphAnimIdRef = useRef<number | null>(null);
 
@@ -246,12 +243,7 @@ export default function HomePage() {
             />
 
             {/* Live Statistical Distribution Histogram */}
-            <div className="pt-2">
-              <HistogramPanel
-                points={activePicture.points}
-                selectedIds={selectedPointIds}
-              />
-            </div>
+            
           </aside>
 
           {/* Center WebGL Scatter Plot Viewport */}
@@ -274,13 +266,18 @@ export default function HomePage() {
                 }}
               />
             ) : (
-              <div className="flex-1 w-full h-full bg-[#070a12] flex items-center justify-center">
-                <span className="text-xs font-mono text-cyan-400">Initializing WebGL Engine...</span>
+              <div className="flex w-240 h-full bg-[#070a12] items-center justify-center">
+                {/* <p className="justify-end text-xs  font-mono text-cyan-400">Initializing WebGL Engine...</p> */}
+                <button className='bg-teal-600 p-4 text-sm rounded-lg text-white'
+                  onClick = {() => handleGenerateNewPicture()}
+                >
+                  New Picture
+                </button>
               </div>
             )}
 
             {/* Bottom Telemetry Bar */}
-            <footer className="h-8 bg-[#090d16] border-t border-slate-800 px-4 flex items-center justify-between text-[11px] font-mono text-slate-400 shrink-0 select-none">
+            {activePicture && <footer className="h-8 bg-[#090d16] border-t border-slate-800 px-4 flex items-center justify-between text-[11px] font-mono text-slate-400 shrink-0 select-none">
               <div className="flex items-center gap-3">
                 <span className="text-slate-300 font-medium">
                   IFS: {activePicture.name}
@@ -303,7 +300,7 @@ export default function HomePage() {
                   GPU 120 FPS
                 </span>
               </div>
-            </footer>
+            </footer>}
           </section>
         </main>
       ) : (

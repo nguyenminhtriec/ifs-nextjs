@@ -223,18 +223,18 @@ export const WebGLScatterPlot: React.FC<Props> = ({
     const posStartData = new Float32Array(count * 2);
     const colorStartData = new Float32Array(count * 4);
     const sizeData = new Float32Array(count);
-    const intensityData = new Float32Array(count);
+    // const intensityData = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       const p = currentPoints[i];
       posStartData[i * 2] = p.x;
-      posStartData[i * 2 + 1] = p.y;
-      colorStartData[i * 4] = p.r;
-      colorStartData[i * 4 + 1] = p.g;
-      colorStartData[i * 4 + 2] = p.b;
-      colorStartData[i * 4 + 3] = p.a;
+      posStartData[i * 2 + 1] = - p.y;
+      colorStartData[i * 4] = parseInt(p.color.slice(1, 3), 16)/255;
+      colorStartData[i * 4 + 1] = parseInt(p.color.slice(3, 5), 16)/255;
+      colorStartData[i * 4 + 2] = parseInt(p.color.slice(5, 7), 16)/255;
+      colorStartData[i * 4 + 3] = 0.92;
       sizeData[i] = p.size;
-      intensityData[i] = p.intensity;
+      // intensityData[i] = p.intensity;
     }
 
     gl.bindBuffer(gl.ARRAY_BUFFER, buffers.posStart);
@@ -246,8 +246,8 @@ export const WebGLScatterPlot: React.FC<Props> = ({
     gl.bindBuffer(gl.ARRAY_BUFFER, buffers.size);
     gl.bufferData(gl.ARRAY_BUFFER, sizeData, gl.DYNAMIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.intensity);
-    gl.bufferData(gl.ARRAY_BUFFER, intensityData, gl.DYNAMIC_DRAW);
+    // gl.bindBuffer(gl.ARRAY_BUFFER, buffers.intensity);
+    // gl.bufferData(gl.ARRAY_BUFFER, intensityData, gl.DYNAMIC_DRAW);
 
     // Positions End
     const posEndData = new Float32Array(count * 2);
@@ -256,11 +256,11 @@ export const WebGLScatterPlot: React.FC<Props> = ({
     for (let i = 0; i < count; i++) {
       const p = targetPoints[i];
       posEndData[i * 2] = p.x;
-      posEndData[i * 2 + 1] = p.y;
-      colorEndData[i * 4] = p.r;
-      colorEndData[i * 4 + 1] = p.g;
-      colorEndData[i * 4 + 2] = p.b;
-      colorEndData[i * 4 + 3] = p.a;
+      posEndData[i * 2 + 1] = - p.y;
+      colorEndData[i * 4] = parseInt(p.color.slice(1, 3), 16)/255;
+      colorEndData[i * 4 + 1] = parseInt(p.color.slice(3, 5), 16)/255;
+      colorEndData[i * 4 + 2] = parseInt(p.color.slice(5, 7), 16)/255;
+      colorEndData[i * 4 + 3] = 0.92;
     }
 
     gl.bindBuffer(gl.ARRAY_BUFFER, buffers.posEnd);
@@ -604,7 +604,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
         selectedIds.push(p.id);
         sumX += p.x;
         sumY += p.y;
-        sumIntensity += p.intensity;
+        // sumIntensity += p.intensity;
       }
     }
 
@@ -617,7 +617,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
 
       // Sample dominant RGB
       const midPoint = selected[Math.floor(selected.length / 2)];
-      const dominantColor = `rgb(${Math.round(midPoint.r * 255)}, ${Math.round(midPoint.g * 255)}, ${Math.round(midPoint.b * 255)})`;
+      const dominantColor = midPoint.color;
 
       const stats: SelectionStats = {
         count: selected.length,
@@ -645,7 +645,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full min-h-[480px] bg-[#070a12] overflow-hidden select-none"
+      className="relative w-full h-full min-h-120 bg-[#070a12] overflow-hidden select-none"
     >
       {/* Underlying High-Performance WebGL Canvas */}
       <canvas
@@ -887,7 +887,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
           <Square className="w-4 h-4" />
         </button>
 
-        <div className="w-[1px] h-4 bg-slate-800 my-auto mx-0.5" />
+        <div className="w-px h-4 bg-slate-800 my-auto mx-0.5" />
 
         <button
           onClick={() => setShowGrid(!showGrid)}
@@ -945,7 +945,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
           <span className="text-slate-600">·</span>
           <span className="font-mono tabular-nums text-slate-400">{zoomTransform.k.toFixed(1)}x Zoom</span>
           <span className="text-slate-600">·</span>
-          <span className="font-mono tabular-nums text-emerald-400">{fps} FPS</span>
+          {/* <span className="font-mono tabular-nums text-emerald-400">{fps} FPS</span> */}
         </div>
 
         {selectedPointIds.length > 0 && (
@@ -986,9 +986,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
               <div
                 className="w-3.5 h-3.5 rounded-full border border-white/40 shadow-sm"
                 style={{
-                  backgroundColor: `rgb(${Math.round(hoveredPoint.r * 255)}, ${Math.round(
-                    hoveredPoint.g * 255
-                  )}, ${Math.round(hoveredPoint.b * 255)})`,
+                  backgroundColor: hoveredPoint.color,
                 }}
               />
             </div>
@@ -1006,25 +1004,7 @@ export const WebGLScatterPlot: React.FC<Props> = ({
                   {hoveredPoint.y.toFixed(2)}
                 </span>
               </div>
-              <div>
-                <span className="text-slate-500">Intensity: </span>
-                <span className="tabular-nums font-medium text-slate-200">
-                  {(hoveredPoint.intensity * 100).toFixed(0)}%
-                </span>
-              </div>
-              <div>
-                <span className="text-slate-500">Cluster: </span>
-                <span className="tabular-nums font-medium text-slate-200">
-                  #{hoveredPoint.cluster}
-                </span>
-              </div>
             </div>
-
-            {hoveredPoint.label && (
-              <div className="pt-1 border-t border-slate-800/80 text-[11px] text-slate-400 italic truncate">
-                {hoveredPoint.label}
-              </div>
-            )}
           </div>
         </div>
       )}
